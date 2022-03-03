@@ -900,7 +900,7 @@ func (o *testTypeDiffer) InsertParentDiffer(dfunc func(path []string, a, b refle
 func (o *testTypeDiffer) Match(a, b reflect.Value) bool {
 	return diff.AreType(a, b, reflect.TypeOf(testType("")))
 }
-func (o *testTypeDiffer) Diff(cl *diff.Changelog, path []string, a, b reflect.Value) error {
+func (o *testTypeDiffer) Diff(cl *diff.Changelog, path []string, a, b reflect.Value, parent interface{}) error {
 	if a.String() != "custom" && b.String() != "match" {
 		cl.Add(diff.UPDATE, path, a.Interface(), b.Interface())
 	}
@@ -954,7 +954,7 @@ func (o *recursiveTestStructDiffer) Match(a, b reflect.Value) bool {
 	return diff.AreType(a, b, reflect.TypeOf(RecursiveTestStruct{}))
 }
 
-func (o *recursiveTestStructDiffer) Diff(cl *diff.Changelog, path []string, a, b reflect.Value) error {
+func (o *recursiveTestStructDiffer) Diff(cl *diff.Changelog, path []string, a, b reflect.Value, parent interface{}) error {
 	if a.Kind() == reflect.Invalid {
 		cl.Add(diff.CREATE, path, nil, b.Interface())
 		return nil
