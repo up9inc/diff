@@ -8,7 +8,7 @@ import (
 	"reflect"
 )
 
-func (d *Differ) diffSlice(path []string, a, b reflect.Value) error {
+func (d *Differ) DiffSlice(path []string, a, b reflect.Value) error {
 	if a.Kind() == reflect.Invalid {
 		d.cl.Add(CREATE, path, nil, exportInterface(b))
 		return nil

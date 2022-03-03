@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func (d *Differ) diffStruct(path []string, a, b reflect.Value) error {
+func (d *Differ) DiffStruct(path []string, a, b reflect.Value) error {
 	if AreType(a, b, reflect.TypeOf(time.Time{})) {
 		return d.diffTime(path, a, b)
 	}

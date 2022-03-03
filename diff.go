@@ -176,11 +176,11 @@ func (d *Differ) diff(path []string, a, b reflect.Value, parent interface{}) err
 	// then built-in diff functions
 	switch {
 	case are(a, b, reflect.Struct, reflect.Invalid):
-		return d.diffStruct(path, a, b)
+		return d.DiffStruct(path, a, b)
 	case are(a, b, reflect.Slice, reflect.Invalid):
-		return d.diffSlice(path, a, b)
+		return d.DiffSlice(path, a, b)
 	case are(a, b, reflect.Array, reflect.Invalid):
-		return d.diffSlice(path, a, b)
+		return d.DiffSlice(path, a, b)
 	case are(a, b, reflect.String, reflect.Invalid):
 		return d.diffString(path, a, b, parent)
 	case are(a, b, reflect.Bool, reflect.Invalid):
