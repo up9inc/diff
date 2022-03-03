@@ -182,7 +182,7 @@ func (d *Differ) diff(path []string, a, b reflect.Value, parent interface{}) err
 	case are(a, b, reflect.Array, reflect.Invalid):
 		return d.DiffSlice(path, a, b)
 	case are(a, b, reflect.String, reflect.Invalid):
-		return d.diffString(path, a, b, parent)
+		return d.DiffString(path, a, b, parent)
 	case are(a, b, reflect.Bool, reflect.Invalid):
 		return d.diffBool(path, a, b, parent)
 	case are(a, b, reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Invalid):

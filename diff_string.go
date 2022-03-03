@@ -6,7 +6,7 @@ package diff
 
 import "reflect"
 
-func (d *Differ) diffString(path []string, a, b reflect.Value, parent interface{}) error {
+func (d *Differ) DiffString(path []string, a, b reflect.Value, parent interface{}) error {
 	if a.Kind() == reflect.Invalid {
 		d.cl.Add(CREATE, path, nil, exportInterface(b))
 		return nil
