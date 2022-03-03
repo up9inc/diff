@@ -18,7 +18,7 @@ func (d *Differ) diffPtr(path []string, a, b reflect.Value, parent interface{}) 
 				return d.diff(path, reflect.ValueOf(nil), reflect.Indirect(b), parent)
 			}
 
-			d.cl.Add(CREATE, path, nil, exportInterface(b), parent)
+			d.cl.Add(CREATE, path, nil, ExportInterface(b), parent)
 			return nil
 		}
 
@@ -27,7 +27,7 @@ func (d *Differ) diffPtr(path []string, a, b reflect.Value, parent interface{}) 
 				return d.diff(path, reflect.Indirect(a), reflect.ValueOf(nil), parent)
 			}
 
-			d.cl.Add(DELETE, path, exportInterface(a), nil, parent)
+			d.cl.Add(DELETE, path, ExportInterface(a), nil, parent)
 			return nil
 		}
 
@@ -39,19 +39,19 @@ func (d *Differ) diffPtr(path []string, a, b reflect.Value, parent interface{}) 
 	}
 
 	if a.IsNil() {
-		d.cl.Add(UPDATE, path, nil, exportInterface(b), parent)
+		d.cl.Add(UPDATE, path, nil, ExportInterface(b), parent)
 		return nil
 	}
 
 	if b.IsNil() {
-		d.cl.Add(UPDATE, path, exportInterface(a), nil, parent)
+		d.cl.Add(UPDATE, path, ExportInterface(a), nil, parent)
 		return nil
 	}
 
 	return d.diff(path, reflect.Indirect(a), reflect.Indirect(b), parent)
 }
 
-func exportInterface(v reflect.Value) interface{} {
+func ExportInterface(v reflect.Value) interface{} {
 	if !v.CanInterface() {
 		flagTmp := (*uintptr)(unsafe.Pointer(uintptr(unsafe.Pointer(&v)) + 2*unsafe.Sizeof(uintptr(0))))
 		*flagTmp = (*flagTmp) & (^isExportFlag)

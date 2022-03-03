@@ -8,12 +8,12 @@ import "reflect"
 
 func (d *Differ) DiffString(path []string, a, b reflect.Value, parent interface{}) error {
 	if a.Kind() == reflect.Invalid {
-		d.cl.Add(CREATE, path, nil, exportInterface(b))
+		d.cl.Add(CREATE, path, nil, ExportInterface(b))
 		return nil
 	}
 
 	if b.Kind() == reflect.Invalid {
-		d.cl.Add(DELETE, path, exportInterface(a), nil)
+		d.cl.Add(DELETE, path, ExportInterface(a), nil)
 		return nil
 	}
 
@@ -24,7 +24,7 @@ func (d *Differ) DiffString(path []string, a, b reflect.Value, parent interface{
 	if a.String() != b.String() {
 		if a.CanInterface() {
 			// If a and/or b is of a type that is an alias for String, store that type in changelog
-			d.cl.Add(UPDATE, path, exportInterface(a), exportInterface(b), parent)
+			d.cl.Add(UPDATE, path, ExportInterface(a), ExportInterface(b), parent)
 		} else {
 			d.cl.Add(UPDATE, path, a.String(), b.String(), parent)
 		}

@@ -8,12 +8,12 @@ import "reflect"
 
 func (d *Differ) diffBool(path []string, a, b reflect.Value, parent interface{}) error {
 	if a.Kind() == reflect.Invalid {
-		d.cl.Add(CREATE, path, nil, exportInterface(b))
+		d.cl.Add(CREATE, path, nil, ExportInterface(b))
 		return nil
 	}
 
 	if b.Kind() == reflect.Invalid {
-		d.cl.Add(DELETE, path, exportInterface(a), nil)
+		d.cl.Add(DELETE, path, ExportInterface(a), nil)
 		return nil
 	}
 
@@ -22,7 +22,7 @@ func (d *Differ) diffBool(path []string, a, b reflect.Value, parent interface{})
 	}
 
 	if a.Bool() != b.Bool() {
-		d.cl.Add(UPDATE, path, exportInterface(a), exportInterface(b), parent)
+		d.cl.Add(UPDATE, path, ExportInterface(a), ExportInterface(b), parent)
 	}
 
 	return nil
