@@ -192,7 +192,7 @@ func (d *Differ) diff(path []string, a, b reflect.Value, parent interface{}) err
 	case are(a, b, reflect.Float32, reflect.Float64, reflect.Invalid):
 		return d.diffFloat(path, a, b, parent)
 	case are(a, b, reflect.Map, reflect.Invalid):
-		return d.diffMap(path, a, b)
+		return d.DiffMap(path, a, b)
 	case are(a, b, reflect.Ptr, reflect.Invalid):
 		return d.diffPtr(path, a, b, parent)
 	case are(a, b, reflect.Interface, reflect.Invalid):
