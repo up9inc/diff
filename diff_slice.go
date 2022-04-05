@@ -37,7 +37,7 @@ func (d *Differ) diffSliceGeneric(path []string, a, b reflect.Value) error {
 	for i := 0; i < a.Len(); i++ {
 		ae := a.Index(i)
 
-		if (d.SliceOrdering && !hasAtSameIndex(b, ae, i)) || (!d.SliceOrdering && !slice.has(b, ae, d)) {
+		if (d.SliceOrdering && !hasAtSameIndex(b, ae, i)) || (!d.SliceOrdering && !slice.has(b, ae)) {
 			missing.addA(i, &ae)
 		}
 	}
@@ -46,7 +46,7 @@ func (d *Differ) diffSliceGeneric(path []string, a, b reflect.Value) error {
 	for i := 0; i < b.Len(); i++ {
 		be := b.Index(i)
 
-		if (d.SliceOrdering && !hasAtSameIndex(a, be, i)) || (!d.SliceOrdering && !slice.has(a, be, d)) {
+		if (d.SliceOrdering && !hasAtSameIndex(a, be, i)) || (!d.SliceOrdering && !slice.has(a, be)) {
 			missing.addB(i, &be)
 		}
 	}
@@ -88,7 +88,7 @@ func (d *Differ) diffSliceComparative(path []string, a, b reflect.Value) error {
 // keeps track of elements that have already been matched, to stop duplicate matches from occurring
 type sliceTracker []bool
 
-func (st *sliceTracker) has(s, v reflect.Value, d *Differ) bool {
+func (st *sliceTracker) has(s, v reflect.Value) bool {
 	if len(*st) != s.Len() {
 		(*st) = make([]bool, s.Len())
 	}
@@ -100,17 +100,7 @@ func (st *sliceTracker) has(s, v reflect.Value, d *Differ) bool {
 		}
 
 		x := s.Index(i)
-
-		var nd Differ
-		nd.Filter = d.Filter
-		nd.customValueDiffers = d.customValueDiffers
-
-		err := nd.diff([]string{}, x, v, nil)
-		if err != nil {
-			continue
-		}
-
-		if len(nd.cl) == 0 {
+		if reflect.DeepEqual(ExportInterface(x), ExportInterface(v)) {
 			(*st)[i] = true
 			return true
 		}
