@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/r3labs/diff/v2"
+	"github.com/r3labs/diff/v2/test"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -611,6 +612,13 @@ func TestDiff(t *testing.T) {
 			nil,
 		},
 		{
+			"complex", test.ReadComplexTestFile(t, "./test/complex.json"), test.ReadComplexTestFile(t, "./test/complex2.json"),
+			diff.Changelog{
+				diff.Change{Type: diff.UPDATE, Path: []string{"paths", "/endpoint", "get", "responses", "200", "content", "application/json", "schema", "oneOf", "0", "properties", "policies", "items", "properties", "additional_properties", "properties", "file_names", "items", "properties", "file_name", "format"}, From: "lowercase", To: "uppercase"},
+			},
+			nil,
+		},
+		{
 			"slice-of-struct-with-slice",
 			[]tnstruct{{[]tmstruct{struct1, struct2}}, {[]tmstruct{struct2, struct2}}},
 			[]tnstruct{{[]tmstruct{struct2, struct2}}, {[]tmstruct{struct2, struct1}}},
@@ -630,6 +638,10 @@ func TestDiff(t *testing.T) {
 				options = append(options, diff.FlattenEmbeddedStructs())
 			case "custom-tags":
 				options = append(options, diff.TagName("json"))
+			case "complex":
+				options = append(options, diff.StructMapKeySupport())
+				options = append(options, diff.DisableStructValues())
+				options = append(options, diff.SliceOrdering(false))
 			}
 			cl, err := diff.Diff(tc.A, tc.B, options...)
 
