@@ -47,12 +47,16 @@ type Schema struct {
 	Required    []string `json:"required,omitempty" diff:"required"`
 }
 
-func ReadComplexTestFile(t *testing.T, path string) PathsMap {
+type Complex struct {
+	Paths PathsMap `json:"paths,omitempty" diff:"paths"`
+}
+
+func ReadComplexTestFile(t *testing.T, path string) Complex {
 	fData, err := ioutil.ReadFile(path)
 	if err != nil {
 		t.Fatal(err)
 	}
-	var data PathsMap
+	var data Complex
 	err = json.Unmarshal(fData, &data)
 	if err != nil {
 		t.Fatal(err)
