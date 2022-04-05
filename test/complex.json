@@ -1,0 +1,234 @@
+{
+    "paths": {
+        "/endpoint": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "properties": {
+                                                "IsPrivate": {
+                                                    "type": "boolean"
+                                                },
+                                                "IsPublic": {
+                                                    "type": "boolean"
+                                                },
+                                                "Contributors": {
+                                                    "items": {
+                                                        "properties": {
+                                                            "Member": {
+                                                                "properties": {
+                                                                    "AvatarUrl": {
+                                                                        "format": "url",
+                                                                        "type": "string"
+                                                                    },
+                                                                    "MemberId": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "Name": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "Nickname": {
+                                                                        "format": "lowercase",
+                                                                        "type": "string"
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "AvatarUrl",
+                                                                    "MemberId",
+                                                                    "Nickname"
+                                                                ],
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "Member"
+                                                        ],
+                                                        "type": "object"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "Name": {
+                                                    "format": "lowercase",
+                                                    "type": "string"
+                                                },
+                                                "Organization": {
+                                                    "properties": {
+                                                        "AvatarUrl": {
+                                                            "format": "url",
+                                                            "type": "string"
+                                                        },
+                                                        "Name": {
+                                                            "format": "lowercase",
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "RepositoryId": {
+                                                    "format": "int,lowercase",
+                                                    "type": "string"
+                                                },
+                                                "Url": {
+                                                    "format": "url",
+                                                    "type": "string"
+                                                },
+                                                "alerts": {
+                                                    "format": "int64",
+                                                    "type": "integer"
+                                                },
+                                                "labels": {
+                                                    "items": {
+                                                        "properties": {
+                                                            "Label": {
+                                                                "properties": {
+                                                                    "LabelId": {
+                                                                        "format": "uuid",
+                                                                        "type": "string"
+                                                                    },
+                                                                    "LabelName": {
+                                                                        "enum": [
+                                                                            "foo",
+                                                                            "bar",
+                                                                            "lorem",
+                                                                            "ipsum"
+                                                                        ],
+                                                                        "format": "lowercase",
+                                                                        "type": "string"
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "LabelId",
+                                                                    "LabelName"
+                                                                ],
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "Label"
+                                                        ],
+                                                        "type": "object"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "policies": {
+                                                    "items": {
+                                                        "properties": {
+                                                            "additional_properties": {
+                                                                "properties": {
+                                                                    "file_extensions": {
+                                                                        "items": {
+                                                                            "properties": {
+                                                                                "enabled": {
+                                                                                    "type": "boolean"
+                                                                                },
+                                                                                "extension": {
+                                                                                    "format": "lowercase",
+                                                                                    "type": "string"
+                                                                                }
+                                                                            },
+                                                                            "required": [
+                                                                                "enabled",
+                                                                                "extension"
+                                                                            ],
+                                                                            "type": "object"
+                                                                        },
+                                                                        "type": "array"
+                                                                    },
+                                                                    "file_names": {
+                                                                        "items": {
+                                                                            "properties": {
+                                                                                "enabled": {
+                                                                                    "type": "boolean"
+                                                                                },
+                                                                                "file_name": {
+                                                                                    "format": "lowercase",
+                                                                                    "type": "string"
+                                                                                }
+                                                                            },
+                                                                            "required": [
+                                                                                "enabled",
+                                                                                "file_name"
+                                                                            ],
+                                                                            "type": "object"
+                                                                        },
+                                                                        "type": "array"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "description": {
+                                                                "type": "string"
+                                                            },
+                                                            "enabled": {
+                                                                "type": "boolean"
+                                                            },
+                                                            "id": {
+                                                                "format": "id (uuid),uuid",
+                                                                "type": "string"
+                                                            },
+                                                            "name": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "additional_properties",
+                                                            "enabled",
+                                                            "id",
+                                                            "name",
+                                                            "type"
+                                                        ],
+                                                        "type": "object"
+                                                    },
+                                                    "type": "array"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        {
+                                            "items": {
+                                                "properties": {
+                                                    "alerts": {
+                                                        "format": "int64",
+                                                        "type": "integer"
+                                                    },
+                                                    "avatar": {
+                                                        "format": "lowercase",
+                                                        "type": "string"
+                                                    },
+                                                    "id": {
+                                                        "format": "int,lowercase",
+                                                        "type": "string"
+                                                    },
+                                                    "name": {
+                                                        "format": "lowercase,uppercase",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "alerts",
+                                                    "avatar",
+                                                    "id",
+                                                    "name"
+                                                ],
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    }
+}
